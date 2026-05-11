@@ -1,0 +1,99 @@
+/* ── Field wrapper ── */
+.field {
+  margin-bottom: 1.1rem;
+}
+
+/* ── Label ── */
+.label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ── Input + icon container ── */
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Left icon ── */
+.icon {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--text3);
+  pointer-events: none;
+  transition: color var(--transition);
+}
+.inputWrap:focus-within .icon {
+  color: var(--accent2);
+}
+
+/* ── Input element ── */
+.input {
+  width: 100%;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 2.75rem 0.7rem 2.6rem;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.input::placeholder {
+  color: var(--text3);
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ── Validation states ── */
+.inputError {
+  border-color: var(--err) !important;
+  box-shadow: 0 0 0 3px var(--err-bg) !important;
+}
+.inputOk {
+  border-color: var(--ok);
+  box-shadow: 0 0 0 3px var(--ok-bg);
+}
+
+/* ── Password toggle button ── */
+.togglePw {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: color var(--transition);
+}
+.togglePw:hover {
+  color: var(--accent2);
+}
+
+/* ── Error message ── */
+.errMsg {
+  font-size: 0.78rem;
+  color: var(--err);
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: slideIn 0.15s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

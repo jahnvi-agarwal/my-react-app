@@ -1,0 +1,142 @@
+/* ── Two-column grid (Name + Username) ── */
+.colTwo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.1rem;
+}
+
+/* Collapse to single column on small screens */
+@media (max-width: 440px) {
+  .colTwo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Phone row (dial code + input) ── */
+.phoneRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.dialCode {
+  width: 72px;
+  flex-shrink: 0;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.7rem 0.4rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  /* Align with the input (label height ≈ 1.3rem + 0.4rem margin) */
+  margin-top: calc(0.8rem + 0.4rem + 2px);
+  height: 42px;
+}
+.dialCode:focus {
+  border-color: var(--accent);
+}
+
+/* ── Optional label suffix ── */
+.optional {
+  opacity: 0.5;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── Forgot password row ── */
+.forgotRow {
+  text-align: right;
+  margin: -0.4rem 0 1rem;
+}
+
+.forgotLink {
+  font-size: 0.82rem;
+  color: var(--accent2);
+  cursor: pointer;
+  transition: color var(--transition);
+  text-decoration: none;
+}
+.forgotLink:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* ── Submit button ── */
+.btnSubmit {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #534ab7 100%);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(127, 119, 221, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.btnSubmit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(127, 119, 221, 0.38);
+}
+.btnSubmit:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Footer switch link ── */
+.footerLink {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+.footerLink span {
+  color: var(--accent2);
+  font-weight: 500;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.footerLink span:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* ── Terms checkbox ── */
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.25rem 0 1.1rem;
+}
+.checkboxRow input[type='checkbox'] {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.checkboxRow label {
+  font-size: 0.82rem;
+  color: var(--text2);
+  cursor: pointer;
+  line-height: 1.5;
+}
+.checkboxRow label a {
+  color: var(--accent2);
+  text-decoration: none;
+}
+.checkboxRow label a:hover {
+  text-decoration: underline;
+}
