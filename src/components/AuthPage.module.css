@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 40px;
   overflow: hidden;
 }
 
@@ -32,38 +32,64 @@
   font-size: 0.9rem;
 }
 
+/* AuthPage.module.css mein update karein */
 .card {
-  background: #1c1c1f;
-  border: 1px solid #333;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.03); /* Dark glass effect */
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 32px;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
 }
 
 .tabs {
   display: flex;
-  gap: 8px;
-  background: #252529;
-  padding: 4px;
-  border-radius: 12px;
-  margin-bottom: 2rem;
+  background: #161618; /* Darker background for the track */
+  padding: 5px;
+  border-radius: 14px;
+  margin-bottom: 2.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
 }
 
 .tab {
   flex: 1;
-  padding: 10px;
+  padding: 12px 10px;
+  text-align: center;
   border: none;
   background: transparent;
-  color: #a1a1aa;
+  color: #71717a; /* Muted color for inactive tab */
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+.tab:hover:not(.tabActive) {
+  color: #a1a1aa;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
 }
 
 .tabActive {
   background: #333;
   color: white;
+  position: relative;
 }
 
 /* Background Orbs */
@@ -77,14 +103,23 @@
   pointer-events: none;
 }
 
-.orbTop {
-  top: -100px;
-  right: -100px;
-  background: #6366f1;
+/* Floating Orbs Animation */
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
-.orbBottom {
-  bottom: -100px;
-  left: -100px;
-  background: #a855f7;
+.orbTop, .orbBottom {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.18;
+  pointer-events: none;
+  animation: float 12s infinite ease-in-out;
 }
+
+.orbTop { top: -10%; right: -5%; background: #6366f1; }
+.orbBottom { bottom: -10%; left: -5%; background: #a855f7; animation-delay: -6s; }

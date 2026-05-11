@@ -178,7 +178,7 @@ function SignupForm({ onSwitch, onSuccess }) {
           value={name}
           onChange={handleNameChange}
           onBlur={blurHandlers.name}
-          placeholder="Jane Doe"
+          placeholder="Name"
           autoComplete="name"
           icon={<UserIcon />}
           error={errors.name}
@@ -191,7 +191,7 @@ function SignupForm({ onSwitch, onSuccess }) {
           value={username}
           onChange={handleUsernameChange}
           onBlur={blurHandlers.username}
-          placeholder="janedoe"
+          placeholder=""
           autoComplete="username"
           icon={<span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text3)' }}>@</span>}
           error={errors.username}

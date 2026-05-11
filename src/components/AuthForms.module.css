@@ -84,14 +84,50 @@
   box-shadow: 0 4px 16px rgba(127, 119, 221, 0.25);
   position: relative;
   overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease !important;
 }
+
 .btnSubmit:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(127, 119, 221, 0.38);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
 }
 .btnSubmit:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+.btnSubmit::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+
+.btnSubmit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.btnSubmit:hover::before {
+  left: 100%;
+}
+
+.btnSubmit:hover::after {
+  left: 100%;
+  top: 100%;
 }
 
 /* ── Footer switch link ── */
@@ -139,4 +175,30 @@
 }
 .checkboxRow label a:hover {
   text-decoration: underline;
+}
+
+/* AuthForms.module.css mein */
+form {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px var(--accent-soft); /* Soft glow */
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
