@@ -6,12 +6,15 @@
 /* ── Label ── */
 .label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text2);
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important; /* Pure White Labels */
   margin-bottom: 0.4rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
   text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
 }
 
 /* ── Input + icon container ── */
@@ -27,9 +30,10 @@
   left: 12px;
   display: flex;
   align-items: center;
-  color: var(--text3);
   pointer-events: none;
   transition: color var(--transition);
+  color: #ffffff !important; /* Bright icons */
+  opacity: 0.8;
 }
 .inputWrap:focus-within .icon {
   color: var(--accent2);
@@ -38,18 +42,19 @@
 /* ── Input element ── */
 .input {
   width: 100%;
-  background: var(--card2);
-  border: 1px solid var(--border2);
   border-radius: var(--radius-sm);
   padding: 0.7rem 2.75rem 0.7rem 2.6rem;
-  color: var(--text);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
   outline: none;
   transition: all 0.2s ease-in-out;
+  background: rgba(0, 0, 0, 0.4) !important; /* Darker input for white text */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-weight: 500;
 }
 .input::placeholder {
-  color: var(--text3);
+  color: rgba(255, 255, 255, 0.4);
 }
 .input:focus {
   border-color: var(--accent) !important;

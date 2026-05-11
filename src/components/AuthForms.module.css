@@ -71,7 +71,7 @@
 .btnSubmit {
   width: 100%;
   padding: 0.8rem 1.5rem;
-  background: linear-gradient(135deg, var(--accent) 0%, #534ab7 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
@@ -80,7 +80,7 @@
   font-weight: 600;
   cursor: pointer;
   letter-spacing: -0.01em;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 4px 16px rgba(127, 119, 221, 0.25);
   position: relative;
   overflow: hidden;
@@ -90,8 +90,8 @@
 }
 
 .btnSubmit:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+  transform: translateY(-3px) ;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
 }
 .btnSubmit:active {
   transform: translateY(0);
@@ -101,12 +101,10 @@
 .btnSubmit::after {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-  transform: rotate(45deg);
+ position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: 0.5s;
 }
 
@@ -127,21 +125,23 @@
 
 .btnSubmit:hover::after {
   left: 100%;
-  top: 100%;
+
 }
 
 /* ── Footer switch link ── */
 .footerLink {
   text-align: center;
   margin-top: 1.25rem;
-  font-size: 0.85rem;
-  color: var(--text2);
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.9rem;
 }
 .footerLink span {
-  color: var(--accent2);
-  font-weight: 500;
   cursor: pointer;
   transition: color var(--transition);
+  color: #ffffff !important;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .footerLink span:hover {
   color: var(--text);
@@ -202,3 +202,13 @@ form {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.fadeIn {
+  animation: fadeInBlur 0.6s ease-out;
+}
+
+@keyframes fadeInBlur {
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+

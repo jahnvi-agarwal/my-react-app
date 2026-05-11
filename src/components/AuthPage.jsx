@@ -1,125 +1,116 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import Toast from './Toast';
-import useToast from '../hooks/useToast';
 import styles from './AuthPage.module.css';
+import backgroundImage from '../auth-bg.jpg';
 
-/**
- * AuthPage
- * Top-level page component.
- * Manages which tab is active and owns the toast state.
- */
 function AuthPage() {
-  // 'login' | 'signup'
   const [activeTab, setActiveTab] = useState('login');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [successType, setSuccessType] = useState('auth'); // 'auth' | 'reset'
 
-  // Toast hook
-  const { message, visible, showToast } = useToast();
-
-  /* ── Login success handler ── */
+  /* ── Modified Login Handler ── */
   function handleLoginSuccess(data) {
     if (data.forgotPassword) {
-      showToast('Password reset link sent to your email.');
+      // Jab Forgot Password click ho
+      setSuccessType('reset');
+      setIsSuccess(true);
     } else {
-      showToast('Welcome back! Signing you in…');
-      // TODO: call your auth API here, e.g.:
-      // await fetch('/api/login', { method:'POST', body: JSON.stringify(data) })
+      // Normal Login success
+      setUserName(data.name || 'User');
+      setSuccessType('auth');
+      setIsSuccess(true);
     }
   }
 
-  /* ── Signup success handler ── */
   function handleSignupSuccess(data) {
-    if (data.termsError) {
-      showToast('Please agree to the Terms of Service to continue.');
-    } else {
-      showToast('Account created! Welcome to Lumina 🎉');
-      // TODO: call your auth API here, e.g.:
-      // await fetch('/api/register', { method:'POST', body: JSON.stringify(data) })
-    }
+    setUserName(data.name || 'User');
+    setSuccessType('auth');
+    setIsSuccess(true);
   }
 
   return (
     <div className={styles.page}>
-
-      {/* ── Ambient background orbs ── */}
-      <div className={styles.orbTop}    aria-hidden="true" />
-      <div className={styles.orbBottom} aria-hidden="true" />
+      <div 
+        className={styles.background} 
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      />
+      <div className={styles.overlay} />
 
       <div className={styles.container}>
-
-        {/* ── Logo ── */}
         <header className={styles.logo}>
-          <div className={styles.logoMark} aria-hidden="true">
-            <LayersIcon />
-          </div>
-          <h1 className={styles.logoName}>Lumina</h1>
-          <p className={styles.logoSub}>Your workspace, elevated.</p>
+          <h1 className={styles.logoName}>LUMINA</h1>
         </header>
 
-        {/* ── Card ── */}
         <main className={styles.card}>
+          {isSuccess ? (
+            <div className={styles.successWrapper}>
+              <div className={styles.checkIcon}>
+                <svg viewBox="0 0 52 52" className={styles.checkmark}>
+                  <circle className={styles.checkmarkCircle} cx="26" cy="26" r="25" fill="none"/>
+                  <path className={styles.checkmarkCheck} fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+              </div>
 
-          {/* Tab switcher */}
-          <div className={styles.tabs} role="tablist" aria-label="Authentication">
-            <button
-              role="tab"
-              className={[styles.tab, activeTab === 'login' ? styles.tabActive : ''].join(' ')}
-              aria-selected={activeTab === 'login'}
-              onClick={() => setActiveTab('login')}
-            >
-              Sign In
-            </button>
-            <button
-              role="tab"
-              className={[styles.tab, activeTab === 'signup' ? styles.tabActive : ''].join(' ')}
-              aria-selected={activeTab === 'signup'}
-              onClick={() => setActiveTab('signup')}
-            >
-              Create Account
-            </button>
-          </div>
+              {/* Conditional Message Based on Action */}
+              {successType === 'reset' ? (
+                <>
+                  <h2 className={styles.successTitle}>Check Your Inbox!</h2>
+                  <p className={styles.successSub}>
+                    We've sent a password reset link to your email address.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 className={styles.successTitle}>Welcome, {userName}!</h2>
+                  <p className={styles.successSub}>Your journey with Lumina begins now.</p>
+                </>
+              )}
+              
+              <button 
+                className={styles.btnSubmit} 
+                style={{ marginTop: '2rem' }}
+                onClick={() => setIsSuccess(false)}
+              >
+                Back to Home
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className={styles.tabs}>
+                <button
+                  className={`${styles.tab} ${activeTab === 'login' ? styles.tabActive : ''}`}
+                  onClick={() => setActiveTab('login')}
+                >
+                  Sign In
+                </button>
+                <button
+                  className={`${styles.tab} ${activeTab === 'signup' ? styles.tabActive : ''}`}
+                  onClick={() => setActiveTab('signup')}
+                >
+                  Join Now
+                </button>
+              </div>
 
-          {/* Forms — only the active one is mounted */}
-          <div
-            key={activeTab}           /* re-mount on tab switch → reset state + re-run animation */
-            className={styles.formPanel}
-            role="tabpanel"
-          >
-            {activeTab === 'login' ? (
-              <LoginForm
-                onSwitch={() => setActiveTab('signup')}
-                onSuccess={handleLoginSuccess}
-              />
-            ) : (
-              <SignupForm
-                onSwitch={() => setActiveTab('login')}
-                onSuccess={handleSignupSuccess}
-              />
-            )}
-          </div>
-
+              <div key={activeTab} className={styles.formPanel}>
+                {activeTab === 'login' ? (
+                  <LoginForm 
+                    onSwitch={() => setActiveTab('signup')} 
+                    onSuccess={handleLoginSuccess} 
+                  />
+                ) : (
+                  <SignupForm 
+                    onSwitch={() => setActiveTab('login')} 
+                    onSuccess={handleSignupSuccess} 
+                  />
+                )}
+              </div>
+            </>
+          )}
         </main>
       </div>
-
-      {/* ── Toast notification ── */}
-      <Toast message={message} visible={visible} />
     </div>
-  );
-}
-
-/* ── Logo SVG ── */
-function LayersIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
-         xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2L2 7L12 12L22 7L12 2Z"
-            stroke="white" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M2 17L12 22L22 17"
-            stroke="white" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-      <path d="M2 12L12 17L22 12"
-            stroke="white" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-    </svg>
   );
 }
 
