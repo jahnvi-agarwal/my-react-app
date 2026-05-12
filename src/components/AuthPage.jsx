@@ -5,9 +5,9 @@ import styles from './AuthPage.module.css';
 import backgroundImage from '../auth-bg.jpg';
 
 /**
- * AuthPage - Updated with Full-Screen Success Animation & Rotating Icon
+ * AuthPage - Integrated with Dashboard Routing
  */
-function AuthPage() {
+function AuthPage({ onLoginSuccess }) {
   const [activeTab, setActiveTab] = useState('login');
   const [isSuccess, setIsSuccess] = useState(false);
   const [userName, setUserName] = useState('');
@@ -22,6 +22,11 @@ function AuthPage() {
       setUserName(data.name || 'User');
       setSuccessType('auth');
       setIsSuccess(true);
+
+      // Animation dikhane ke baad Dashboard par bhejne ke liye logic
+      setTimeout(() => {
+        onLoginSuccess(data);
+      }, 2500); // 2.5 seconds success screen dikhegi
     }
   };
 
@@ -29,6 +34,11 @@ function AuthPage() {
     setUserName(data.name || 'User');
     setSuccessType('auth');
     setIsSuccess(true);
+
+    // Signup ke baad bhi dashboard par bhej rahe hain
+    setTimeout(() => {
+      onLoginSuccess(data);
+    }, 2500);
   };
 
   return (
@@ -41,7 +51,6 @@ function AuthPage() {
       <div className={styles.overlay} />
 
       <div className={styles.container}>
-        {/* ─── Header with Rotating Icon WAPAS AA GAYA ─── */}
         <header className={styles.logo}>
           <div className={styles.logoIcon}>
             <LayersIcon />
@@ -51,7 +60,7 @@ function AuthPage() {
 
         <main className={styles.card}>
           {isSuccess ? (
-            /* ─── Premium Success Screen (with Icon) ─── */
+            /* ─── Premium Success Screen ─── */
             <div className={styles.successWrapper}>
               <div className={styles.checkIcon}>
                 <svg viewBox="0 0 52 52" className={styles.checkmark}>
@@ -60,29 +69,26 @@ function AuthPage() {
                 </svg>
               </div>
 
-              {/* Conditional Message Based on Type */}
               {successType === 'reset' ? (
                 <>
                   <h2 className={styles.successTitle}>Check Your Inbox!</h2>
                   <p className={styles.successSub}>
                     We've sent a password reset link to your email address.
                   </p>
+                  <button 
+                    className={styles.btnSubmit} 
+                    style={{ marginTop: '2.5rem' }}
+                    onClick={() => setIsSuccess(false)}
+                  >
+                    Back to Login
+                  </button>
                 </>
               ) : (
                 <>
                   <h2 className={styles.successTitle}>Welcome, {userName}!</h2>
-                  <p className={styles.successSub}>Your journey with Lumina begins now.</p>
+                  <p className={styles.successSub}>Redirecting to your dashboard...</p>
                 </>
               )}
-              
-              {/* Reset link for demo */}
-              <button 
-                className={styles.btnSubmit} 
-                style={{ marginTop: '2.5rem' }}
-                onClick={() => setIsSuccess(false)}
-              >
-                Back to Dashboard
-              </button>
             </div>
           ) : (
             /* ─── Auth Form UI ─── */
@@ -123,7 +129,6 @@ function AuthPage() {
   );
 }
 
-/* ── Minimalist Rotating Logo Icon (Wapas added) ── */
 function LayersIcon() {
   return (
     <svg viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
