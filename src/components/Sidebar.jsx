@@ -1,12 +1,18 @@
 import React from 'react';
 import styles from './Dashboard.module.css';
 
-function Sidebar({ onLogout }) {
+/**
+ * Sidebar Component
+ * Ab ye props (activeTab, setActiveTab) receive karta hai taaki navigation functional ho sake.
+ */
+function Sidebar({ activeTab, setActiveTab, onLogout }) {
+  
+  // Navigation configuration
   const navItems = [
-    { name: 'Overview', icon: <HomeIcon />, active: true },
-    { name: 'Projects', icon: <ProjectIcon />, active: false },
-    { name: 'Skills', icon: <CodeIcon />, active: false },
-    { name: 'Settings', icon: <SettingsIcon />, active: false },
+    { name: 'Overview', icon: <HomeIcon /> },
+    { name: 'Projects', icon: <ProjectIcon /> },
+    { name: 'Hiring Analytics', icon: <CodeIcon /> },
+
   ];
 
   return (
@@ -17,12 +23,15 @@ function Sidebar({ onLogout }) {
         <span>LUMINA</span>
       </div>
 
-      {/* Navigation Links */}
+      {/* Navigation Links - Functional with onClick */}
       <div className={styles.navMenu}>
         {navItems.map((item) => (
           <div 
             key={item.name} 
-            className={`${styles.navItem} ${item.active ? styles.activeNavItem : ''}`}
+            className={`${styles.navItem} ${activeTab === item.name ? styles.activeNavItem : ''}`}
+            onClick={() => setActiveTab(item.name)} // Tab switch logic
+            role="button"
+            tabIndex={0}
           >
             <span className={styles.iconWrapper}>{item.icon}</span>
             <span className={styles.navText}>{item.name}</span>
@@ -41,7 +50,7 @@ function Sidebar({ onLogout }) {
   );
 }
 
-/* ── Minimalist SVG Icons ── */
+/* ── Minimalist SVG Icons (Keep as is) ── */
 const HomeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 );

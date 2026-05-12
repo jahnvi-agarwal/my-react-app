@@ -233,3 +233,241 @@
   color: #fff;
   box-shadow: 0 10px 20px rgba(226, 75, 74, 0.2);
 }
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.searchBox {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.linkInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  color: white;
+  outline: none;
+}
+
+.linkInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(127, 119, 221, 0.2);
+}
+
+.scanBtn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0 25px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.portfolioResult {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(127, 119, 221, 0.1);
+  border-left: 4px solid var(--accent);
+  border-radius: 15px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.resAvatar {
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.tabTitle {
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+/* Filter & Status Badges */
+.badgeSuccess {
+  background: rgba(29, 158, 117, 0.2);
+  color: #1d9e75;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px solid #1d9e75;
+}
+
+.badgeError {
+  background: rgba(226, 75, 74, 0.2);
+  color: #e24b4a;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px solid #e24b4a;
+}
+
+.borderGreen { border-left: 5px solid #1d9e75 !important; }
+.borderRed { border-left: 5px solid #e24b4a !important; }
+
+.resultCard {
+  margin-top: 25px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  animation: slideIn 0.4s ease-out;
+}
+
+.filterChecklist {
+  margin: 15px 0;
+  display: flex;
+  gap: 20px;
+  font-weight: 500;
+}
+
+.selectedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Status Colors & Badges */
+.statusDone {
+  background: #1d9e75;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  box-shadow: 0 0 15px rgba(29, 158, 117, 0.4);
+}
+
+.statusRejected {
+  background: #e24b4a;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.borderGreen { border: 2px solid #1d9e75 !important; }
+.borderRed { border: 2px solid #e24b4a !important; }
+
+/* Criteria Grid */
+.criteriaGrid {
+  display: flex;
+  gap: 30px;
+  margin: 25px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+}
+
+.criteriaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.criteriaItem span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+/* Final Action Button */
+.selectBtn {
+  width: 100%;
+  padding: 15px;
+  background: #ffffff;
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.selectBtn:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 10px 20px rgba(127, 119, 221, 0.3);
+}
+
+.skillText {
+  color: #afa9ec;
+  font-size: 0.85rem;
+  margin: 10px 0;
+}
+
+.projectGrid, .skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.projectTag {
+  background: rgba(127, 119, 221, 0.2);
+  color: #afa9ec;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.skillBadge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  margin: 5px;
+  display: inline-block;
+}
+
+.settingOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 10px 0;
+}
+
+.statusDot {
+  color: #1d9e75;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

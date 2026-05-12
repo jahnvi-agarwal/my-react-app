@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import styles from './Dashboard.module.css';
 
 function Dashboard({ user, onLogout }) {
+  const [activeTab, setActiveTab] = useState('Overview');
+  const [candidateLink, setCandidateLink] = useState('');
+  const [analyzedCandidate, setAnalyzedCandidate] = useState(null);
+  const [selectedCandidates, setSelectedCandidates] = useState([]);
+
+  // Projects Data
+  const projects = [
+    { name: "NoteMark", tag: "Full Stack", link: "https://note-mark-nu.vercel.app/" },
+    { name: "Portfolio Website", tag: "Frontend", link: "https://prodigy-wd-04-nu.vercel.app" }
+  ];
+
+  // Tech Stack for Overview
   const techStack = [
     { name: 'React.js', level: 'Advanced', color: '#61dafb' },
     { name: 'JavaScript', level: 'Expert', color: '#f7df1e' },
@@ -10,77 +22,91 @@ function Dashboard({ user, onLogout }) {
     { name: 'Node.js', level: 'Intermediate', color: '#68a063' }
   ];
 
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('selectedCandidates') || '[]');
+    setSelectedCandidates(saved);
+  }, []);
+
   return (
     <div className={styles.layout}>
-      <Sidebar onLogout={onLogout} />
+      {/* Make sure to remove Settings from your Sidebar.jsx component as well */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={onLogout} />
       
       <main className={styles.mainContent}>
-        {/* Top Greeting Section */}
-        <header className={styles.header}>
-          <div className={styles.headerInfo}>
-            <h1 className={styles.greeting}>Core Dashboard</h1>
-            <p className={styles.subText}>Welcome back, <span className={styles.highlight}>{user?.name || 'Mahak Gupta'}</span></p>
-          </div>
-          <div className={styles.headerStats}>
-            <div className={styles.statBox}>
-              <span className={styles.statLabel}>Project Status</span>
-              <span className={styles.statVal}>Active</span>
+        <div className={styles.contentWrapper}>
+          
+          {/* ── OVERVIEW ── */}
+          {activeTab === 'Overview' && (
+            <div className={styles.fadeIn}>
+              <header className={styles.header}>
+                <h1 className={styles.greeting}>Welcome</h1>
+                <span className={styles.highlight}>{user?.name || 'Jahnvi Agarwal'}</span>
+              </header>
+              <section className={styles.dashboardGrid}>
+                <div className={`${styles.glassCard} ${styles.profileCard}`}>
+                  <div className={styles.avatarPlaceholder}>JA</div>
+                  <h3>Jahnvi Agarwal</h3>
+                  <p>Frontend Developer</p>
+                </div>
+                <div className={`${styles.glassCard} ${styles.techCard}`}>
+                  <h3>Expertise</h3>
+                  {techStack.map(t => (
+                    <div key={t.name} className={styles.techItem}>
+                      <div className={styles.techInfo}><span>{t.name}</span></div>
+                      <div className={styles.progressBar}>
+                        <div className={styles.progressFill} style={{width: '80%', backgroundColor: t.color}}></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
-          </div>
-        </header>
+          )}
 
-        <section className={styles.dashboardGrid}>
-          {/* Profile Quick View */}
-          <div className={`${styles.glassCard} ${styles.profileCard}`}>
-            <div className={styles.avatarPlaceholder}>JA</div>
-            <div className={styles.profileDetails}>
-              <h3>Jahnvi Agarwal</h3>
-              <p>Frontend Developer & React Enthusiast</p>
-              <div className={styles.socialIcons}>
-                <span>GitHub</span> • <span>LinkedIn</span> • <span>Portfolio</span>
+          {/* ── PROJECTS ── */}
+          {activeTab === 'Projects' && (
+            <div className={styles.fadeIn}>
+              <h2 className={styles.tabTitle}>My Projects</h2>
+              <div className={styles.projectGrid}>
+                {projects.map((p, i) => (
+                  <div key={i} className={styles.glassCard}>
+                    <span className={styles.projectTag}>{p.tag}</span>
+                    <h4>{p.name}</h4>
+                    <button className={styles.actionBtn} onClick={() => window.open(p.link, '_blank')}>Visit Project</button>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Project Highlights */}
-         {/* Project Highlights Section mein button update karein */}
-<div className={`${styles.glassCard} ${styles.projectCard}`}>
-  <div className={styles.cardHeader}>
-    <h3>Active Project</h3>
-    <span className={styles.badge}>Live</span>
-  </div>
-  <h4>Local Store Web Application</h4>
-  <p>A full-stack e-commerce solution built with modern web standards.</p>
-  
-  {/* Yahan onClick handler add karein */}
-  <button 
-    className={styles.actionBtn} 
-    onClick={() => window.open('https://prodigy-wd-04-nu.vercel.app', '_blank')}
-  >
-    Open Project
-  </button>
-</div>
-          {/* Tech Stack Visualizer */}
-          <div className={`${styles.glassCard} ${styles.techCard}`}>
-            <h3>Technical Expertise</h3>
-            <div className={styles.techList}>
-              {techStack.map((tech) => (
-                <div key={tech.name} className={styles.techItem}>
-                  <div className={styles.techInfo}>
-                    <span>{tech.name}</span>
-                    <small>{tech.level}</small>
-                  </div>
-                  <div className={styles.progressBar}>
-                    <div 
-                      className={styles.progressFill} 
-                      style={{ width: tech.level === 'Expert' ? '90%' : '70%', backgroundColor: tech.color }}
-                    ></div>
-                  </div>
+          {/* ── HIRING INSIGHTS (Replaced Skills) ── */}
+          {activeTab === 'Hiring Analytics' && (
+            <div className={styles.fadeIn}>
+              <h2 className={styles.tabTitle}>Hiring Analytics</h2>
+              <div className={styles.dashboardGrid}>
+                <div className={styles.glassCard}>
+                  <h3>Candidate Pipeline</h3>
+                  <div style={{fontSize: '2.5rem', fontWeight: '800', margin: '15px 0', color: '#afa9ec'}}>142</div>
+                  <p style={{opacity: 0.6}}>Profiles scanned this month</p>
                 </div>
-              ))}
+                <div className={styles.glassCard}>
+                  <h3>Success Ratio</h3>
+                  <div style={{fontSize: '2.5rem', fontWeight: '800', margin: '15px 0', color: '#1d9e75'}}>88%</div>
+                  <p style={{opacity: 0.6}}>Match accuracy rating</p>
+                </div>
+                <div className={`${styles.glassCard} ${styles.fullWidthCard}`}>
+                  <h3>System Activity Log</h3>
+                  <ul style={{listStyle: 'none', padding: 0, marginTop: '15px'}}>
+                    <li style={{padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)'}}>✅ Verification Pass: candidate_id_99</li>
+                    <li style={{padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)'}}>❌ Location Mismatch: candidate_id_102</li>
+                    <li style={{padding: '10px 0'}}>📩 Invite Sent: Senior Frontend Role</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          )}
+
+        </div>
       </main>
     </div>
   );
