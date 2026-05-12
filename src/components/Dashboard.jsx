@@ -94,14 +94,7 @@ function Dashboard({ user, onLogout }) {
                   <div style={{fontSize: '2.5rem', fontWeight: '800', margin: '15px 0', color: '#1d9e75'}}>88%</div>
                   <p style={{opacity: 0.6}}>Match accuracy rating</p>
                 </div>
-                <div className={`${styles.glassCard} ${styles.fullWidthCard}`}>
-                  <h3>System Activity Log</h3>
-                  <ul style={{listStyle: 'none', padding: 0, marginTop: '15px'}}>
-                    <li style={{padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)'}}>✅ Verification Pass: candidate_id_99</li>
-                    <li style={{padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)'}}>❌ Location Mismatch: candidate_id_102</li>
-                    <li style={{padding: '10px 0'}}>📩 Invite Sent: Senior Frontend Role</li>
-                  </ul>
-                </div>
+                
               </div>
             </div>
           )}

@@ -4,21 +4,18 @@ import AuthPage from './components/AuthPage';
 import Dashboard from './components/Dashboard';
 
 /**
- * App.js - Updated with Routing and Protected Dashboard
+ * App Root: Handles Protected Routing and Authentication State
  */
 function App() {
   const [user, setUser] = useState(null);
 
-  // Check if user is already logged in on mount
+  // Persistence check: Session restore on mount
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
   const handleLoginSuccess = (userData) => {
-    // Save user data for session persistence
     localStorage.setItem('currentUser', JSON.stringify(userData));
     setUser(userData);
   };
@@ -31,31 +28,19 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Auth Route */}
+        {/* Auth Route: Redirects to dashboard if already logged in */}
         <Route 
           path="/" 
-          element={
-            !user ? (
-              <AuthPage onLoginSuccess={handleLoginSuccess} />
-            ) : (
-              <Navigate to="/dashboard" replace />
-            )
-          } 
+          element={!user ? <AuthPage onLoginSuccess={handleLoginSuccess} /> : <Navigate to="/dashboard" replace />} 
         />
 
-        {/* Protected Dashboard Route */}
+        {/* Protected Dashboard: Redirects to login if not authenticated */}
         <Route 
           path="/dashboard" 
-          element={
-            user ? (
-              <Dashboard user={user} onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/" replace />
-            )
-          } 
+          element={user ? <Dashboard user={user} onLogout={handleLogout} /> : <Navigate to="/" replace />} 
         />
 
-        {/* Catch-all redirect */}
+        {/* 404 Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
